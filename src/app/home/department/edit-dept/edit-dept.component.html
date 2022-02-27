@@ -1,0 +1,15 @@
+<clr-modal
+  (clrModalOpenChange)="close()"
+  [(clrModalOpen)]="isOpen"
+  [clrModalSize]="'xl'"
+  [clrModalStaticBackdrop]="false">
+
+  <h3 class="modal-title">EDIT</h3>
+  <div class="modal-body">
+    <p>But not much to say...</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="isOpen = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="isOpen = false">Ok</button>
+  </div>
+</clr-modal>

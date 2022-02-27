@@ -1,0 +1,8 @@
+.custom_modal{
+  position:fixed;
+  width:600px;
+  height: 600px;
+  background-color: bisque;
+  left: 650px;
+  right:auto;
+}

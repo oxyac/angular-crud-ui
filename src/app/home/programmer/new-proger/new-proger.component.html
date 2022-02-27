@@ -1,0 +1,92 @@
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyleProger}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add new Artist</h4>
+      </div>
+      <form (ngSubmit)="createProger(f)" #f="ngForm">
+        <div class="modal-body">
+          <button class="btn btn-info" (click)="fill()">Fill with</button>
+
+
+          <div class="form-group">
+            <label for="first_name">Nume</label>
+            <input
+              type="text"
+              name="first_name"
+              class="form-control"
+              id="first_name"
+              placeholder="Grigore"
+              required
+              ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="last_name">Prenume</label>
+            <input
+              type="text"
+              name="last_name"
+              class="form-control"
+              id="last_name"
+              placeholder="Vieru"
+              required
+              ngModel>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              class="form-control"
+              id="phone"
+              placeholder="68-999-234"
+              minlength="8" maxlength="9"
+              ngModel>
+
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              id="email"
+              placeholder="g.vieru@unifun.com"
+              ngModel
+            >
+          </div>
+
+          <div class="form-group radio" *ngFor="let level of levels; let i = index;">
+            <label>
+              <input type="radio"
+                     name="level"
+                     ngModel
+                     [value]="i+1"
+                     required
+              >
+              {{level}}
+            </label>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"
+                  (click)="closePopupProger()">
+            Close
+          </button>
+          <button type="submit" class="btn btn-success"
+                  [disabled]="!f.valid">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
