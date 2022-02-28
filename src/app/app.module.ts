@@ -13,6 +13,15 @@ import { NewDeptComponent } from './home/department/new-dept/new-dept.component'
 import { EditDeptComponent } from './home/department/edit-dept/edit-dept.component';
 import { NewProgerComponent } from './home/programmer/new-proger/new-proger.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule, Routes} from "@angular/router";
+import {ProgrammersComponent} from "./programmers/programmers.component";
+import {DepartmentsComponent} from "./departments/departments.component";
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'programmers', component: ProgrammersComponent},
+  {path: 'departments', component: DepartmentsComponent}
+]
 
 @NgModule({
   declarations: [
@@ -23,7 +32,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     NewDeptComponent,
     EditDeptComponent,
     NewDeptComponent,
-    NewProgerComponent
+    NewProgerComponent,
+    DepartmentsComponent,
+    ProgrammersComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +44,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     ClrModalModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

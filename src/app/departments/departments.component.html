@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 ">
+
+      <div>
+        <h3>Department Details</h3>
+      </div>
+      <div>
+        <button onclick="enable()" class="btn btn-outline-warning">Edit
+        </button>
+        <script>
+          function enable() {
+            document.getElementById('project_name').disabled = false;
+            document.getElementById('language').disabled = false;
+          }
+        </script>
+
+        <button class="btn btn-outline-danger">&nbsp;DELETE
+        </button>
+
+      </div>
+      <hr/>
+
+      <form (ngSubmit)="editDepartment(f)" #f="ngForm">
+        <input type="hidden" name="depId" ngModel/>
+
+        <div class="form-group">
+          <label for="project_name">Project</label>
+          <input disabled type="text" id="project_name" name="project_name" class="form-control" ngModel>
+        </div>
+
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input disabled type="text" name="language" class="form-control" id="language" ngModel>
+        </div>
+
+        <button type="submit" class="btn btn-primary success">SAVE</button>
+
+      </form>
+    </div>
+
+
+    <div class="col-md-6">
+      <div>
+        <h2>TEAM</h2>
+        <div>
+
+          <form (ngSubmit)="addProgerToDept(f2)" #f2="ngForm">
+
+            <label for="id_depId"></label>
+
+            <select name="id_depId" id="id_depId" type="id_depId" [ngModel]="1">
+              <div *ngFor="let user of vagabondUsers">
+                <option name="id_depId"
+                        value="1">ABC
+                </option>
+              </div>
+
+            </select>
+
+            <button type="submit" class="btn btn-primary">Assign</button>
+
+          </form>
+        </div>
+      </div>
+      <hr/>
+
+      <table class="table table-bordered table-striped">
+
+
+        <thead>
+        <tr>
+          <th>№</th>
+          <th>Nume</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Nivelul</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let programmer of depTeam; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{programmer.first_name}}</td>
+          <td>{{programmer.phone}}</td>
+          <td>{{programmer.email}}</td>
+          <td>{{programmer.level}}</td>
+          <td>{{programmer.on_project}}</td>
+          <td>
+
+            <button class="btn btn-outline-primary" (click)="setHead(programmer.id)">Set Head
+            </button>
+
+            <button class="btn btn-outline-secondary" (click)="unassignFromDept(programmer.id)">Unassign
+            </button>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
