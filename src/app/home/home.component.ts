@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CrudService} from "../crud.service";
 import {Department} from "./department/department";
 import {Programmer} from "./programmer/programmer";
-import {Subject} from "rxjs";
+import {Subject, timeout} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
   constructor(private crudService : CrudService) { }
 
   ngOnInit(): void {
+    this.fetchAll();
+  }
+
+  fetchAll(){
     this.crudService.getAll().subscribe((data: any) => {
       this.programmers = Object.values(data.progers);
       this.departments = Object.values(data.departments);
@@ -34,18 +38,10 @@ export class HomeComponent implements OnInit {
     })
   }
 
-
   showModalDepartmentInfo(department: Department) {
     this.modalVisible = true;
     this.modalDepartment = department;
   }
-
-  modalInitialized() {
-    if (this.modalDepartment instanceof Department) {
-      this.modalDepartmentInfo$.next(this.modalDepartment);
-    }
-  }
-
 
   openPopupDept() {
     this.displayStyleDept = "block";
@@ -64,6 +60,12 @@ export class HomeComponent implements OnInit {
 
   closePopupProger() {
     this.displayStyleProger = "none";
+  }
+
+  deleteDept(id: number) {
+    this.crudService.deleteDeptById(id);
+    timeout(1000);
+    this.fetchAll();
   }
 
 }

@@ -1,4 +1,3 @@
-
 <body>
 
 <app-new-dept
@@ -7,8 +6,8 @@
 
 <app-new-proger
   [displayStyleProger]="displayStyleProger"
-  (closedNewProger)="closePopupProger()"></app-new-proger>
-
+  (closedNewProger)="closePopupProger()"
+  (createdProger)="fetchAll()"></app-new-proger>
 
 
 <div class="wrapper">
@@ -23,55 +22,57 @@
           </button>
 
         </div>
+        <div style="height:620px;overflow:auto;">
+          <table class="table table-bordered table-striped">
 
-        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>№</th>
+              <th>Project</th>
+              <th>Limbaj</th>
+              <th>Head Name</th>
+              <th>Proger #</th>
+            </tr>
+            </thead>
 
-          <thead>
-          <tr>
-            <th>№</th>
-            <th>Project</th>
-            <th>Limbaj</th>
-            <th>Head Name</th>
-            <th>Proger #</th>
-          </tr>
-          </thead>
+            <!--          <tr *ngIf="isOpen">-->
+            <!--            <td>NEW</td>-->
+            <!--            <td><input class="form-control" id="project_name" #project_name></td>-->
+            <!--            <td><input class="form-control clr-form" id="language" #language></td>-->
+            <!--            <td><input class="form-control" id="head_id" #head_id></td>-->
+            <!--            <td></td>-->
+            <!--            <td>-->
+            <!--              <button class="btn btn-success" type="submit" >Add-->
+            <!--              </button>-->
+            <!--              <button class="btn btn-outline-danger" onclick="">-->
+            <!--                <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete-->
+            <!--              </button>-->
+            <!--            </td>-->
 
-<!--          <tr *ngIf="isOpen">-->
-<!--            <td>NEW</td>-->
-<!--            <td><input class="form-control" id="project_name" #project_name></td>-->
-<!--            <td><input class="form-control clr-form" id="language" #language></td>-->
-<!--            <td><input class="form-control" id="head_id" #head_id></td>-->
-<!--            <td></td>-->
-<!--            <td>-->
-<!--              <button class="btn btn-success" type="submit" >Add-->
-<!--              </button>-->
-<!--              <button class="btn btn-outline-danger" onclick="">-->
-<!--                <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete-->
-<!--              </button>-->
-<!--            </td>-->
+            <!--          </tr>-->
 
-<!--          </tr>-->
+            <tr *ngFor="let department of departments; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{department.project_name}}</td>
+              <td>{{department.language}}</td>
+              <td>{{department.head_name}}</td>
+              <td>{{department.progs_count}}</td>
+              <td>
+                <button class="btn btn-outline-primary" (click)="showModalDepartmentInfo(department)">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;Info
+                </button>
+                <button class="btn btn-outline-danger" (click)="deleteDept(department.id)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete
+                </button>
+              </td>
 
-          <tr *ngFor = "let department of departments; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{department.project_name}}</td>
-            <td>{{department.language}}</td>
-            <td>{{department.head_name}}</td>
-            <td>{{department.progs_count}}</td>
-            <td>
-              <button class="btn btn-outline-primary" (click)="showModalDepartmentInfo(department)">
-                <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;Info
-              </button>
-              <button class="btn btn-outline-danger" onclick="">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete
-              </button>
-            </td>
+            </tr>
 
-          </tr>
-
-        </table>
+          </table>
+        </div>
 
       </div>
+
 
       <div class="col-md-6">
         <div class="mt-5 mb-3 clearfix">
@@ -84,40 +85,42 @@
 
         </div>
 
-        <table class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th>№</th>
-            <th>Nume</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Nivelul</th>
-            <th>Member of</th>
+        <div style="height:620px;overflow:auto;">
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>№</th>
+              <th>Nume</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Nivelul</th>
+              <th>Member of</th>
 
-          </tr>
-          </thead>
+            </tr>
+            </thead>
 
 
-          <tr *ngFor = "let programmer of programmers; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{programmer.first_name}}</td>
-            <td>{{programmer.phone}}</td>
-            <td>{{programmer.email}}</td>
-            <td>{{programmer.level}}</td>
-            <td>{{programmer.on_project}}</td>
-            <td>
+            <tr *ngFor="let programmer of programmers; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{programmer.first_name}}</td>
+              <td>{{programmer.phone}}</td>
+              <td>{{programmer.email}}</td>
+              <td>{{programmer.level}}</td>
+              <td>{{programmer.on_project}}</td>
+              <td>
 
-              <button class="btn btn-outline-primary">
-              <i class="fa fa-info" aria-hidden="true"></i>Info
-              </button>
+                <button class="btn btn-outline-primary">
+                  <i class="fa fa-info" aria-hidden="true"></i>Info
+                </button>
 
-              <button class="btn btn-outline-danger" >
-                <i class="fa fa-trash-o" aria-hidden="true"></i>Delete
-              </button>
+                <button class="btn btn-outline-danger">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>Delete
+                </button>
 
-            </td>
-          </tr>
-        </table>
+              </td>
+            </tr>
+          </table>
+        </div>
 
       </div>
     </div>

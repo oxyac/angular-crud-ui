@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewDeptComponent } from './home/department/new-dept/new-dept.component';
 import { EditDeptComponent } from './home/department/edit-dept/edit-dept.component';
 import { NewProgerComponent } from './home/programmer/new-proger/new-proger.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import {FormsModule} from "@angular/forms";
     ClarityModule,
     BrowserAnimationsModule,
     ClrModalModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

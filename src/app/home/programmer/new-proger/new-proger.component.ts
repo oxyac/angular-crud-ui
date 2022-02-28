@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {Programmer} from "../programmer";
 import {HttpClient} from "@angular/common/http";
 import {CrudService} from "../../../crud.service";
+import {toNumbers} from "@angular/compiler-cli/src/version_helpers";
 
 @Component({
   selector: 'app-new-proger',
@@ -22,6 +23,9 @@ export class NewProgerComponent implements OnInit {
   @Output()
   closedNewProger = new EventEmitter<any>();
 
+  @Output()
+  createdProger = new EventEmitter<any>();
+
   constructor(private crud: CrudService) {
   }
 
@@ -40,11 +44,13 @@ export class NewProgerComponent implements OnInit {
     proger.first_name = form.value.first_name;
     proger.last_name = form.value.last_name;
     proger.email = form.value.email;
-    proger.phone = form.value.phone;
-    proger.level = form.value.level;
+    proger.phone = Number(form.value.phone);
+    proger.level = Number(form.value.level);
 
-
+    form.reset();
     this.crud.postProgrammer(proger);
+    this.closePopupProger();
+    this.createdProger.emit();
   }
 
   fill(){
@@ -54,6 +60,8 @@ export class NewProgerComponent implements OnInit {
       last_name: "Bulgakov",
       level: "1",
       phone: "123432432"
-    })
+    });
+    this.closePopupProger();
+    this.createdProger.emit();
   }
 }

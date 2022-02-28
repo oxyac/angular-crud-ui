@@ -8,8 +8,9 @@
       <div class="modal-header">
         <h4 class="modal-title">Add new Department</h4>
       </div>
-      <form (ngSubmit)="createDept(f)" #f="ngForm">
+      <form [formGroup]="newDeptForm" (ngSubmit)="createDept()">
         <div class="modal-body">
+          <button class="btn btn-info" (click)="fill()">Auto</button>
 
 
           <div class="form-group">
@@ -17,10 +18,9 @@
             <input
               type="text"
               class="form-control"
-              ngModel
+              formControlName="project_name"
               name="project_name"
-              id="project_name"
-              required>
+              id="project_name">
           </div>
 
           <div class="form-group">
@@ -29,9 +29,8 @@
               type="text"
               name="language"
               class="form-control"
-              ngModel
-              id="language"
-              required>
+              formControlName="language"
+              id="language">
           </div>
 
 
@@ -43,8 +42,7 @@
           </button>
           <button
             type="submit"
-            class="btn btn-success"
-            [disabled]="!f.valid">
+            class="btn btn-success">
             Add
           </button>
         </div>
