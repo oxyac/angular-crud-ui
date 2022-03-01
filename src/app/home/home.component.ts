@@ -3,6 +3,7 @@ import {CrudService} from "../crud.service";
 import {Department} from "./department/department";
 import {Programmer} from "./programmer/programmer";
 import {Subject, timeout} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
   modalDepartment?: Department;
   modalVisible = false;
 
-  constructor(private crudService : CrudService) { }
+  constructor(private crudService : CrudService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.fetchAll();
@@ -51,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   closePopupDept() {
     this.displayStyleDept = "none";
+    this.router.navigate([''])
   }
 
   openPopupProger() {
@@ -66,6 +69,10 @@ export class HomeComponent implements OnInit {
     this.crudService.deleteDeptById(id);
     timeout(1000);
     this.fetchAll();
+  }
+
+  refresh(){
+    this.router.navigate([''])
   }
 
 }

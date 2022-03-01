@@ -10,17 +10,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {ClarityModule, ClrModalModule} from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewDeptComponent } from './home/department/new-dept/new-dept.component';
-import { EditDeptComponent } from './home/department/edit-dept/edit-dept.component';
 import { NewProgerComponent } from './home/programmer/new-proger/new-proger.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
-import {ProgrammersComponent} from "./programmers/programmers.component";
-import {DepartmentsComponent} from "./departments/departments.component";
+import {EditDeptComponent} from "./home/department/edit-dept/edit-dept.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'programmers', component: ProgrammersComponent},
-  {path: 'departments', component: DepartmentsComponent}
+  {path: 'department/:id', component: EditDeptComponent}
 ]
 
 @NgModule({
@@ -33,8 +30,6 @@ const appRoutes: Routes = [
     EditDeptComponent,
     NewDeptComponent,
     NewProgerComponent,
-    DepartmentsComponent,
-    ProgrammersComponent
   ],
   imports: [
     BrowserModule,

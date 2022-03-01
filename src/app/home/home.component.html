@@ -17,8 +17,7 @@
         <div class="mt-5 mb-3 clearfix">
           <h2 class="pull-left">IT Departments</h2>
           <button (click)="openPopupDept()" type="button"
-                  class="btn btn-primary">
-            <i class="fa fa-plus"></i> Add New Department
+                  class="btn btn-primary">Add New Department
           </button>
 
         </div>
@@ -58,7 +57,7 @@
               <td>{{department.head_name}}</td>
               <td>{{department.progs_count}}</td>
               <td>
-                <button class="btn btn-outline-primary" (click)="showModalDepartmentInfo(department)">
+                <button class="btn btn-outline-primary" [routerLink]="['department', department.id]">
                   <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;Info
                 </button>
                 <button class="btn btn-outline-danger" (click)="deleteDept(department.id)">
@@ -109,8 +108,7 @@
               <td>{{programmer.on_project}}</td>
               <td>
 
-                <button class="btn btn-outline-primary">
-                  <i class="fa fa-info" aria-hidden="true"></i>Info
+                <button class="btn btn-outline-primary" >Info
                 </button>
 
                 <button class="btn btn-outline-danger">

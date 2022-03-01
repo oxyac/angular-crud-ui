@@ -30,7 +30,6 @@ export class NewDeptComponent implements OnInit {
       'project_name':  new FormControl(null, Validators.required)
     })
 
-    console.log(this.displayStyleDept)
 
   }
 

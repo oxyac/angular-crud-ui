@@ -1,15 +1,108 @@
-<clr-modal
-  (clrModalOpenChange)="close()"
-  [(clrModalOpen)]="isOpen"
-  [clrModalSize]="'xl'"
-  [clrModalStaticBackdrop]="false">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 ">
 
-  <h3 class="modal-title">EDIT</h3>
-  <div class="modal-body">
-    <p>But not much to say...</p>
+      <div>
+        <h3>Department Details</h3>
+      </div>
+      <div>
+
+        <button (click)="enable()" class="btn btn-outline-warning ">Edit
+        </button>
+
+        <button class="btn btn-outline-danger ">&nbsp;DELETE
+        </button>
+
+      </div>
+      <hr/>
+
+      <form [formGroup]="editDeptForm" (ngSubmit)="editDepartment()">
+
+        <div class="form-group">
+          <label for="project_name">Project</label>
+          <input [disabled]="isFormD"
+                 type="text"
+                 id="project_name"
+                 name="project_name"
+                 class="form-control"
+                 formControlName="project_name">
+        </div>
+
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input [disabled]="isFormD"
+                 type="text"
+                 name="language"
+                 class="form-control"
+                 id="language"
+                 formControlName="language">
+        </div>
+
+        <button type="submit" class="btn btn-primary success" [disabled]="editDeptForm.disabled">SAVE</button>
+
+      </form>
+    </div>
+
+
+    <div class="col-md-6">
+      <div>
+        <h2>TEAM</h2>
+        <div>
+
+          <form (ngSubmit)="addProgerToDept(f2)" #f2="ngForm">
+
+            <label for="id_depId"></label>
+
+            <select name="id_depId" id="id_depId" type="id_depId" ngModel>
+              <option *ngFor="let proger of vagabondUsers" name="id_depId" [value]=proger.id>
+                {{proger.first_name + " " + proger.last_name}}</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary btn-sm">Assign</button>
+
+          </form>
+        </div>
+      </div>
+      <hr/>
+      <div style="height:620px;overflow:auto;">
+        <table class="table table-bordered table-striped">
+
+
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Nume</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Nivelul</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let programmer of depTeam; let i = index;">
+            <td>{{i + 1}}</td>
+            <td>{{programmer.first_name}} {{programmer.last_name}}</td>
+            <td>{{programmer.phone}}</td>
+            <td>{{programmer.email}}</td>
+            <td>{{programmer.level}}</td>
+            <td>
+
+              <button *ngIf="department.head_id != programmer.id" class="btn btn-outline-primary"
+                      (click)="setHead(programmer.id)">Set Head
+              </button>
+
+              <button *ngIf="department.head_id == programmer.id" class="btn btn-outline-primary" disabled>HEAD
+              </button>
+
+              <button class="btn btn-outline-secondary" (click)="unassignFromDept(programmer.id)">Unassign
+              </button>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="isOpen = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="isOpen = false">Ok</button>
-  </div>
-</clr-modal>
+</div>
+

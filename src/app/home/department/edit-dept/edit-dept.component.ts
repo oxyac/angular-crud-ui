@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from "rxjs";
-import {Department} from "../department";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {CrudService} from "../../../crud.service";
+import {Department} from "../department";
+import {ActivatedRoute} from "@angular/router";
+import {Programmer} from "../../programmer/programmer";
 
 @Component({
   selector: 'app-edit-dept',
@@ -10,39 +12,61 @@ import {CrudService} from "../../../crud.service";
 })
 export class EditDeptComponent implements OnInit {
 
-  isOpen!: boolean;
-
-  departmentInfo?: Department;
-
-  @Input()
-  departmentInfo$!: Observable<Department>;
-
-  @Output()
-  initialized = new EventEmitter<any>();
-
-  @Output()
-  closed = new EventEmitter<any>();
+  vagabondUsers?: Programmer[];
+  depTeam?: Programmer[];
+  isFormD = true;
 
 
-  constructor(private crudService : CrudService) { }
+  department!: Department;
+
+  editDeptForm!: FormGroup;
+
+
+
+  constructor(private crud : CrudService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.isOpen = true;
-    this.departmentInfo$.subscribe((depInfo) => {
-      this.departmentInfo = depInfo;
-      // this.crudService.getDepartmentInfo(depInfo.id).subscribe((data) => {
-      //   this.
-      // })
-      this.isOpen = true;
-      // this.fileDataService.getMeta(depInfo.id).subscribe((meta) => {
-      //   this.meta = meta;
-      // });
+    this.editDeptForm = new FormGroup({
+      'language': new FormControl(null, Validators.required),
+      'project_name':  new FormControl(null, Validators.required),
     });
-    this.initialized.next('э');
 
-  }
-  close() {
-    this.isOpen = false;
+    this.crud.getDeptInfo(this.route.snapshot.params['id']).subscribe((data: any) => {
+      this.department = data.department;
+      this.depTeam = data.team;
+      this.vagabondUsers = data.progers;
+      console.log(this.department);
+      console.log(this.depTeam);
+
+      this.editDeptForm.setValue({
+        'language': this.department.language,
+        'project_name': this.department.project_name,
+      });
+    })
+
+    this.editDeptForm.disable();
   }
 
+  editDepartment() {
+    this.department.language = this.editDeptForm.value.language;
+    this.department.project_name = this.editDeptForm.value.project_name;
+    this.crud.updateDeptById(this.department);
+  }
+
+  addProgerToDept(f2: NgForm) {
+    this.crud.assignProgToDept(f2.value.id_depId, this.department.id);
+  }
+
+  setHead(id: number) {
+    this.crud.setDeptHead(id, this.department.id);
+  }
+
+  unassignFromDept(id: number) {
+    this.crud.unassignProgFromDept(id, this.department.id);
+  }
+
+  enable(){
+    this.editDeptForm.enable();
+  }
 }

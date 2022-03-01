@@ -1,5 +1,5 @@
 export class Programmer{
-  id?: number;
+  id!: number;
   first_name?: string;
   last_name?: string;
   level?: string | number;

@@ -4,6 +4,7 @@ import {Programmer} from "../programmer";
 import {HttpClient} from "@angular/common/http";
 import {CrudService} from "../../../crud.service";
 import {toNumbers} from "@angular/compiler-cli/src/version_helpers";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-proger',
@@ -26,7 +27,8 @@ export class NewProgerComponent implements OnInit {
   @Output()
   createdProger = new EventEmitter<any>();
 
-  constructor(private crud: CrudService) {
+  constructor(private crud: CrudService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class NewProgerComponent implements OnInit {
     form.reset();
     this.crud.postProgrammer(proger);
     this.closePopupProger();
+
     this.createdProger.emit();
   }
 
